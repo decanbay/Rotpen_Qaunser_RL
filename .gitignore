@@ -1,0 +1,14 @@
+.vscode\
+.vscode/
+quanser_robots\ball_balancer\__pycache__\
+quanser_robots/ball_balancer\__pycache__/
+quanser_robots\cartpole\__pycache__\
+quanser_robots/cartpole/__pycache__/
+quanser_robots\qube\__pycache__\
+quanser_robots/qube/__pycache__/
+quanser_robots\rotpen\__pycache__\
+quanser_robots/rotpen/__pycache__/
+quanser_robots\levitation\__pycache__\
+quanser_robots/levitation/__pycache__/
+quanser_robots\double_pendulum\__pycache__\
+quanser_robots/double_pendulum/__pycache__/

@@ -16,8 +16,8 @@ class Rotpen(RotpenBase):
         pole_radius = 0.0045
         pole_length = 0.034
         # http://www.glowscript.org/docs/VPythonDocs/canvas.html
-        self._vis['vp'].scene.width = 1200
-        self._vis['vp'].scene.height = 900
+        self._vis['vp'].scene.width = 800
+        self._vis['vp'].scene.height = 600
         self._vis['vp'].scene.background = self._vis['vp'].color.gray(0.95)
         self._vis['vp'].scene.lights = []
         self._vis['vp'].distant_light(
