@@ -1,0 +1,1 @@
+Logging to logs/simulator/RotpenSwingUpEnv/1e6/seed-374

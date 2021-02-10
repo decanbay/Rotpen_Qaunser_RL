@@ -1,0 +1,98 @@
+#--------------------------- Tool Specifications -------------------------
+#
+# Modify the following macros to reflect the tools you wish to use for
+# compiling and linking your code.
+#
+CC = /usr/local/MATLAB/R2020b/bin/mex -R2018a
+LD = $(CC)
+NVCC = nvcc
+ 
+MODEL     = Non_linear_simulation
+TARGET      = sfun
+MODULE_SRCS   = c2_Non_linear_simulation.cu
+MODEL_SRC  = Non_linear_simulation_sfun.cu
+MODEL_REG = Non_linear_simulation_sfun_registry.cu
+MAKEFILE    = Non_linear_simulation_sfun.mku
+MATLAB_ROOT  = /usr/local/MATLAB/R2020b/toolbox/stateflow/stateflow/../../..
+BUILDARGS   = 
+#------------------------------ Include/Lib Path ------------------------------
+ 
+USER_INCLUDES = -I"/media/deniz/CommonStorage/GithubRepos/Rotpen_Qaunser_RL/AAP5_simulator" 
+AUX_INCLUDES = 
+MLSLSF_INCLUDES  = \
+    -I"$(MATLAB_ROOT)/sys/cuda/glnxa64/cuda/include" \
+    -I"$(MATLAB_ROOT)/toolbox/shared/coder/coder/gpucoder/src/cuda/export/include/cuda" \
+    -I"$(MATLAB_ROOT)/toolbox/gpucoder/gpucoder/src/cuda/thrust" \
+    -I"/usr/local/MATLAB/R2020b/extern/include" \
+    -I"/usr/local/MATLAB/R2020b/simulink/include" \
+    -I"/usr/local/MATLAB/R2020b/simulink/include/sf_runtime" \
+    -I"/usr/local/MATLAB/R2020b/stateflow/c/mex/include" \
+    -I"/usr/local/MATLAB/R2020b/rtw/c/src" \
+    -I"/media/deniz/CommonStorage/GithubRepos/Rotpen_Qaunser_RL/AAP5_simulator/slprj/_sfprj/Non_linear_simulation/_self/sfun/src" 
+
+THIRD_PARTY_INCLUDES = 
+
+INCLUDE_PATH = $(USER_INCLUDES) $(AUX_INCLUDES) $(MLSLSF_INCLUDES) $(COMPILER_INCLUDES) $(THIRD_PARTY_INCLUDES)
+ 
+#----------------- Compiler and Linker Options --------------------------------
+ 
+# Optimization Options
+ 
+CC_OPTS = -Xcompiler "" 
+CPP_REQ_DEFINES = -DMATLAB_MEX_FILE
+ 
+# Uncomment this line to move warning level to W4
+# cflags = $(cflags:W3=W4)
+CFLAGS = $(CPP_REQ_DEFINES) $(INCLUDE_PATH) CFLAGS="\$$CFLAGS $(CC_OPTS)"
+CUFLAGS_NO_RDC = $(CPP_REQ_DEFINES) $(INCLUDE_PATH) $(CC_OPTS) -arch sm_75 -DMW_CUDA_ARCH=750 -Xcompiler -fPIC,-fno-gnu-unique -noprof -ldir "$(MATLAB_ROOT)/bin/glnxa64" -I "$(MATLAB_ROOT)/sys/cuda/glnxa64/cuda/include"
+CUFLAGS = $(CUFLAGS_NO_RDC) -rdc=true
+ 
+LDFLAGS = -Xlinker " "
+ 
+AUXLDFLAGS = 
+#----------------------------- Source Files -----------------------------------
+ 
+REQ_SRCS  = $(MODEL_SRC) $(MODEL_REG) $(MODULE_SRCS)
+
+USER_OBJS =
+
+AUX_ABS_OBJS =
+THIRD_PARTY_OBJS =
+
+REQ_OBJS = $(REQ_SRCS:.cpp=.o)
+REQ_OBJS2 = $(REQ_OBJS:.c=.o)
+REQ_OBJS3 = $(REQ_OBJS2:.cu=.o)
+OBJS = $(REQ_OBJS3) $(USER_OBJS) $(AUX_ABS_OBJS) $(THIRD_PARTY_OBJS)
+OBJLIST_FILE = Non_linear_simulation_sfun.mol
+SFCLIB = 
+AUX_LNK_OBJS = 
+USER_LIBS = 
+PARLIB = 
+CUDALIB = -I"$(MATLAB_ROOT)/sys/cuda/glnxa64/cuda/include" -L"$(MATLAB_ROOT)/sys/cuda/glnxa64/cuda/lib64"  -l:libcudart.so.10.2.89 -l:libcublas.so.10 -l:libcusolver.so.10 -l:libcufft.so.10
+GPUCODER_CUDA_UTIL_LIB = "$(MATLAB_ROOT)/bin/glnxa64/libmwgpucoder_cuda.a"
+  MAPCSF = /usr/local/MATLAB/R2020b/tools/glnxa64/mapcsf
+   # RUN_MAPCSF_ON_UNIX is defined only if MAPCSF exists on this platform.
+   ifneq ($(wildcard $(MAPCSF)),) # run MAPCSF if it exists on this platform
+      RUN_MAPCSF_ON_UNIX =  /usr/local/MATLAB/R2020b/tools/glnxa64/mapcsf $@
+   endif
+ 
+#--------------------------------- Rules --------------------------------------
+ 
+MEX_FILE_NAME = $(MODEL)_$(TARGET).mexa64
+ 
+ SYSLIB =  -L/usr/local/MATLAB/R2020b/bin/glnxa64 -lmwblas "-L/usr/local/MATLAB/R2020b/bin/glnxa64" "-lmwsf_runtime" "-L/usr/local/MATLAB/R2020b/bin/glnxa64" "-lfixedpoint" "-L/usr/local/MATLAB/R2020b/bin/glnxa64" "-lut" "-L/usr/local/MATLAB/R2020b/bin/glnxa64" "-lemlrt" "-L/usr/local/MATLAB/R2020b/bin/glnxa64" "-lmwstringutil" "-L/usr/local/MATLAB/R2020b/bin/glnxa64" "-lmwmathutil" "-L/usr/local/MATLAB/R2020b/bin/glnxa64" "-lmwblas" "-L/usr/local/MATLAB/R2020b/bin/glnxa64" "-lmwsl_log_load_blocks" "-L/usr/local/MATLAB/R2020b/bin/glnxa64" "-lmwsimulink" "-L/usr/local/MATLAB/R2020b/bin/glnxa64" "-lmwsl_sfcn_cov_bridge" "-L/usr/local/MATLAB/R2020b/bin/glnxa64" "-lcovrt" "-L/usr/local/MATLAB/R2020b/bin/glnxa64" "-lmwlapack" "-L/usr/local/MATLAB/R2020b/bin/glnxa64" "-lmwsl_simtarget_core" "-L/usr/local/MATLAB/R2020b/bin/glnxa64" "-lmwsl_simtarget_instrumentation" "-L/usr/local/MATLAB/R2020b/bin/glnxa64" "-lmwslexec_simlog" "-L/usr/local/MATLAB/R2020b/bin/glnxa64" "-lmwslccrt" "-L/usr/local/MATLAB/R2020b/bin/glnxa64" "-lmwipp"
+
+ $(MEX_FILE_NAME): $(MAKEFILE) $(OBJS) $(SFCLIB) $(AUX_LNK_OBJS) $(USER_LIBS)
+	@echo ### Linking ...
+	$(NVCC) -shared -o $(MEX_FILE_NAME) $(OBJS) $(AUX_LNK_OBJS) $(USER_LIBS) $(SFCLIB) $(PARLIB) $(IPPLIB) $(THIRD_PARTY_LIBS) $(SYSLIB) $(CUDALIB) $(GPUCODER_CUDA_UTIL_LIB) $(LDFLAGS) -arch sm_75 -DMW_CUDA_ARCH=750
+	$(RUN_MAPCSF_ON_UNIX)
+
+%.o :    %.c
+	$(NVCC) -c $(CUFLAGS) $<
+
+%.o :    %.cpp
+	$(NVCC) -c $(CUFLAGS) $<
+
+%.o :    %.cu
+	$(NVCC) -c $(CUFLAGS) $<
+

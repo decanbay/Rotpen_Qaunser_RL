@@ -49,7 +49,7 @@ basePartPatchHandle = patch(Xt,Yt,Zt,C,'Edgecolor', edgecolor,'facealpha',faceal
 %
 % Arm parts.
 %
-clear VRML_vertices;
+% clear VRML_vertices;
 load armParts_vertices;
 [X Y Z C] = vrml2patch_func(size(VRML_vertices,2),VRML_vertices);
 X = X*10; Y = Y*10; Z = Z*10;
@@ -79,7 +79,7 @@ pendPartPatchHandle = patch(Xt,Yt,Zt,C,'Edgecolor', edgecolor,'facealpha',faceal
 %
 clear VRML_vertices;
 load driveParts_vertices;
-[X Y Z C] = vrml2patch_func(size(VRML_vertices,2),VRML_vertices);
+[X, Y, Z, C] = vrml2patch_func(size(VRML_vertices,2),VRML_vertices);
 X = X*10; Y = Y*10; Z = Z*10;
 drivePartVertices = [X(:) Y(:) Z(:) ones(length(X(:)),1)]';
 drivePart_vertices_G_frame = BaseToDrive* drivePartVertices;
@@ -178,7 +178,7 @@ T=[cy*cp, cy*sp*sr-sy*cr, cy*sp*cr+sy*sr, X; sy*cp, sy*sp*sr+cy*cr, sy*sp*cr-cy*
 end
 
 
-function [X Y Z C] = vrml2patch_func(nel, w3d)
+function [X, Y, Z, C] = vrml2patch_func(nel, w3d)
 % VRML2PATCH - VRML struct conversion
 % Usage [X Y Z C] = vrml2patch(nel, w3d)
 % creates X Y Z and C matrices for patch function from the w3d struct (and

@@ -46,7 +46,7 @@ lp = Lp/2  ;    %half length of pendulum
 % Initialise replayer.
 %
 lengthOfReplay = 10; % Seconds.
-frameRate = 1000; % Make this higher if playback is too fast. Make this lower if playback is laggy.
+frameRate = 100; % Make this higher if playback is too fast. Make this lower if playback is laggy.
 [armPartPatchHandle, armPartVertices, pendPartPatchHandle, pendPartVertices, drivePartPatchHandle, drivePartVertices, thetaPlotHandle, alphaPlotHandle] = initialiseVisualiser(lengthOfReplay);
 
 
