@@ -177,7 +177,7 @@ class Base(gym.Env):
         :param fs_ctrl: frequency of control
         :type fs_ctrl: float
         """
-        super(Base, self).__init__()
+        super().__init__()
         self._state = None
         self._vel_filt = None
         self.timing = Timing(fs, fs_ctrl)
